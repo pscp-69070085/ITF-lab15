@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOODPICKER ITF</title>
+  <!-- Google Fonts: Kanit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --text-main: #ffffff;
+      --text-sub: #b0b0b0;
+      --accent-color: #ff7b00;
+      --accent-hover: #e06d00;
+      --nav-bg: #181818;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Kanit', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Navbar */
+    nav {
+      width: 100%;
+      background-color: var(--nav-bg);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    nav .student-id, nav .week-tag {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    nav h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* Card แสดงผลข้อมูลอาหาร */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      border: 1px solid #2c2c2c;
+      transition: opacity 0.2s ease;
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      background-color: #2a2a2a;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p.description {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-bottom: 1rem;
+      min-height: 2.8em;
+    }
+
+    .card .price-tag {
+      display: inline-block;
+      background-color: #2a2a2a;
+      color: #ff9d3b;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid #3d3d3d;
+    }
+
+    /* ปุ่มสุ่มเมนู */
+    .btn-random {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 123, 0, 0.3);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-random:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-random:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <span class="student-id">69070085</span>
+    <h1>FOODPICKER ITF</h1>
+    <span class="week-tag">Wk15</span>
+  </nav>
+
+  <!-- Content Container -->
+  <main>
+    <div class="card" id="foodCard">
+      <img id="foodImg" src="" alt="รูปเมนูอาหาร">
+      <h2 id="foodName">ชื่อเมนูอาหาร</h2>
+      <p id="foodDesc" class="description">คำอธิบายเมนูอาหาร</p>
+      <div class="price-tag">ราคา <span id="foodPrice">-</span> บาท</div>
+    </div>
+
+    <button class="btn-random" onclick="randomFood()">สุ่มเมนูอาหาร</button>
+  </main>
+
+  <script>
+    // รายการอาหาร 5 รายการ พร้อมลิงก์รูปภาพที่ถูกต้อง
+    const foods = [
+      {
+        name: "ข้าวมันไก่",
+        desc: "น้ำจิ้มเด็ด น้ำซุปร้อนๆ หอมนุ่ม ไก่ชิ้นโตนุ่มลิ้น",
+        price: "50 - 65",
+        img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "ข้าวผัดกระเพราไข่ดาว",
+        desc: "รสชาติเผ็ดร้อน หอมกลิ่นใบกระเพราแท้ เสิร์ฟพร้อมไข่ดาวกรอบ",
+        price: "50 - 60",
+        img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=600&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "ก๋วยเตี๋ยวต้มยำ",
+        desc: "น้ำซุปเข้มข้นถึงเครื่องต้มยำ หมูสับแน่นๆ รสชาติเปรี้ยวเผ็ดแซ่บ",
+        price: "60 - 80",
+        img: "https://images.unsplash.com/photo-1555126634-323283e090fa?w=600&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "ข้าวหมูแดงหมูกรอบ",
+        desc: "หมูกรอบเคี้ยวเพลิน หมูแดงนุ่มลิ้น ราดน้ำซอสรสกลมกล่อม",
+        price: "55 - 70",
+        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop&q=80"
+      },
+      {
+        name: "ผัดไทยกุ้งสด",
+        desc: "เส้นจันทน์เหนียวนุ่ม ผัดซอสผัดไทยสูตรเข้มข้น พร้อมกุ้งสดและถั่วบด",
+        price: "60 - 75",
+        img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&auto=format&fit=crop&q=80"
+      }
+    ];
+
+    let lastIndex = -1;
+
+    function randomFood() {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * foods.length);
+      } while (randomIndex === lastIndex && foods.length > 1);
+      
+      lastIndex = randomIndex;
+      const selected = foods[randomIndex];
+
+      const card = document.getElementById('foodCard');
+      card.style.opacity = '0.4';
+
+      setTimeout(() => {
+        document.getElementById('foodImg').src = selected.img;
+        document.getElementById('foodName').textContent = selected.name;
+        document.getElementById('foodDesc').textContent = selected.desc;
+        document.getElementById('foodPrice').textContent = selected.price;
+        card.style.opacity = '1';
+      }, 150);
+    }
+
+    // สุ่มครั้งแรกเมื่อเปิดหน้าเว็บ
+    window.onload = randomFood;
+  </script>
+</body>
+</html>
